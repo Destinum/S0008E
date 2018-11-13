@@ -4,6 +4,7 @@
 //------------------------------------------------------------------------------
 #include "config.h"
 #include "exampleapp.h"
+#include "NAX3parser.h"
 //#include "objloader.hpp"
 #include <cstring>
 
@@ -73,13 +74,6 @@ ExampleApp::Open()
 		0.5f,	-0.5f,	-1,		1	// pos 2
 	};
 
-	// GLfloat buf2[] =
-	// {
-	// 	-2.0f,	-1.0f,	-2.0f,		1,	// pos 0
-	// 	0.0f,	-1.0f,	-2.0f,		1,	// pos 1
-	// 	-1.0f,	1.0f,	-2.0f,		1	// pos 2
-	// };
-
 
 	GLfloat bufColor[] = 
 	{
@@ -87,21 +81,6 @@ ExampleApp::Open()
 		0,		1,		0,		1,	// color 1
 		0,		0,		1,		1	// color 2
 	};
-
-	// GLfloat bufColor[60];
-
-	// for (int i = 0; i < sizeof(bufColor); i + 12)
-	// {
-	// 	bufColor[i] = bufColor[i + 3] = bufColor[i + 5] = bufColor[i + 7] = bufColor[i + 10] = bufColor[i + 11] = 1;
-	// 	bufColor[i + 1] = bufColor[i + 2] = bufColor[i + 4] = bufColor[i + 6] = bufColor[i + 8] = bufColor[i + 9] = 0;
-	// }
-	
-	// GLfloat bufColor2[] = 
-	// {
-	// 	1,		0,		0,		1,	// color 0
-	// 	1,		0,		0,		1,	// color 1
-	// 	1,		0,		0,		1	// color 2
-	// };
 
 	if (this->window->Open())
 	{
@@ -158,34 +137,17 @@ ExampleApp::Open()
 
 		this->MatrixID = glGetUniformLocation(this->program, "MVP");			//Added stuff
 
-		//Matrix3D Projection = Projection.ProjectionMatrix(45.0f, 4.0f/3.0f, 0.1f, 100.0f);
-
-		//Matrix3D View = View.ViewMatrix(this->position, Vector3D(0,0,0,1), Vector3D(0,-1,0,1));		//assign asdasd (for search in code purpose) adadasdastr4r
-
-		// Matrix3D Model;
-
-		// Model.matris[3][0] = 10;
-		// Model.matris[3][1] = 10;
-		// Model.matris[3][2] = 10;
-
-		//this->MVP = Projection * View /** Model*/;
 
 		//setup vbo
 		glGenBuffers(1, &this->triangle);
 		glBindBuffer(GL_ARRAY_BUFFER, this->triangle);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(buf), buf, GL_STATIC_DRAW);
 
-		// glGenBuffers(1, &this->triangle2);
-		// glBindBuffer(GL_ARRAY_BUFFER, this->triangle2);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(buf2), buf2, GL_STATIC_DRAW);
 
 		glGenBuffers(1, &this->color);
 		glBindBuffer(GL_ARRAY_BUFFER, this->color);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(bufColor), bufColor, GL_STATIC_DRAW);
 
-		// glGenBuffers(1, &this->color2);
-		// glBindBuffer(GL_ARRAY_BUFFER, this->color2);
-		// glBufferData(GL_ARRAY_BUFFER, sizeof(bufColor2), bufColor2, GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -457,6 +419,57 @@ void ExampleApp::UpdateChildren(int index)
 	}
 }
 
+void ExampleApp::ChangeAnimation(int* AnimationIndex, int* AnimationFrame)
+{
+	if (glfwGetKey( window->window, GLFW_KEY_1 ) == GLFW_PRESS && *AnimationIndex != 0)
+	{
+		*AnimationIndex = 0;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_2 ) == GLFW_PRESS && *AnimationIndex != 1)
+	{
+		*AnimationIndex = 1;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_3 ) == GLFW_PRESS && *AnimationIndex != 2)
+	{
+		*AnimationIndex = 2;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_4 ) == GLFW_PRESS && *AnimationIndex != 3)
+	{
+		*AnimationIndex = 3;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_5 ) == GLFW_PRESS && *AnimationIndex != 4)
+	{
+		*AnimationIndex = 4;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_6 ) == GLFW_PRESS && *AnimationIndex != 5)
+	{
+		*AnimationIndex = 5;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_7 ) == GLFW_PRESS && *AnimationIndex != 6)
+	{
+		*AnimationIndex = 6;
+		*AnimationFrame = 0;
+	}
+
+	else if (glfwGetKey( window->window, GLFW_KEY_8 ) == GLFW_PRESS && *AnimationIndex != 7)
+	{
+		*AnimationIndex = 7;
+		*AnimationFrame = 0;
+	}
+}
+
 void ExampleApp::Run()
 {
 	tinyxml2::XMLDocument doc;
@@ -478,21 +491,13 @@ void ExampleApp::Run()
 		AssignElementToJoint(theElement);
 	}
 
-	// AssignElementToJoint(theElement);
-
-
-	// theElement = doc.FirstChildElement()->FirstChildElement()->FirstChildElement()->FirstChildElement()->FirstChildElement()->NextSiblingElement();
-
-	// AssignElementToJoint(theElement);
 
 	cout << ListOfJoints[0].name << endl;
 	cout << ListOfJoints[1].name << endl;
 	cout << ListOfJoints[20].name << endl;
 
-	//cout << ListOfJoints[ListOfJoints[ListOfJoints[1].parent].ListOfChildren[0]].name << endl;
-
 	
-		// Read our .obj file
+		// Read the .obj file
 		const char* filepathOfObject = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/Mesh/sphere.obj";
 		vector<Vector3D> vertices;
 		vector<Vector2D>  uvs;
@@ -517,40 +522,75 @@ void ExampleApp::Run()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(ListToBuffer), ListToBuffer, GL_STATIC_DRAW);
 
 
-
-		// GLfloat lineVertices[] = 
-		// {
-		// 	0, 0, 0,
-		// 	-1, -1, 0
-		// };
-
 		GLuint LinesBuffer;
 		glGenBuffers(1, &LinesBuffer);
-		//glBindBuffer(GL_ARRAY_BUFFER, LinesBuffer);
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
+
+
+
+	
+
+		const char* NAX3filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.nax3";
+
+		CoreAnimation::NAX3parser AnimationParser;
+		
+		AnimationParser.SetupFromNax3(NAX3filepath);
+
+
 
 
 	while (this->window->IsOpen())
 	{
-
+		static int AnimationIndex = 2;
 
 		static double lastTime = glfwGetTime();
+		static int AnimationFrame = 0;
+
+		ChangeAnimation(&AnimationIndex, &AnimationFrame);
 
 		// Compute time difference between current and last frame
 		double currentTime = glfwGetTime();
 		float deltaTime = float(currentTime - lastTime);
 
-		if (deltaTime >= 0.01)
+		if (deltaTime >= 0.1)
 		{
 			lastTime = currentTime;
 
-			Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(Vector3D( 0.0174524, 0, 0, 0.9998477));
+			for (int index = 0; index < 21; index++)
+			{
+
+				int currentKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame) * 84 + index * 4;
+
+				Matrix3D TranslationMatrix;
+
+				ListOfJoints[index].VectorOfCoordinates[0] = TranslationMatrix.matris[3][0] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0];
+				ListOfJoints[index].VectorOfCoordinates[1] = TranslationMatrix.matris[3][1] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1];
+				ListOfJoints[index].VectorOfCoordinates[2] = TranslationMatrix.matris[3][2] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2];
+
+				if (index > 0)
+						TranslationMatrix = ListOfJoints[ListOfJoints[index].parent].coordinates * TranslationMatrix;
+
+
+				Vector3D RotationVector(AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[3]);
+				Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(RotationVector);
+
+				ListOfJoints[index].coordinates = TranslationMatrix * RotationMatrix;
+
+			}
+
+			/*Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(Vector3D( 0.0174524, 0, 0, 0.9998477));
 
 			ListOfJoints[5].coordinates = ListOfJoints[5].coordinates * RotationMatrix;
 			UpdateChildren(5);
 
 			ListOfJoints[9].coordinates = ListOfJoints[9].coordinates * RotationMatrix;
-			UpdateChildren(9);
+			UpdateChildren(9);*/
+
+			AnimationFrame += 1;
+			
+			if(AnimationFrame >= AnimationParser.ListOfClips[AnimationIndex]->numKeys)
+			{
+				AnimationFrame = 0;
+			}
 		}
 
 
@@ -567,32 +607,14 @@ void ExampleApp::Run()
 
 
 
-		// glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &this->MVP.matris[0][0]);
-
-		// glBindBuffer(GL_ARRAY_BUFFER, this->triangle);
-		// glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float32) * 4, NULL);
-
-		// glBindBuffer(GL_ARRAY_BUFFER, this->color);
-		// glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float32) * 4, NULL/*(GLvoid*)(sizeof(float32) * 4)*/);
-
-		// glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
-
 
 		glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
-		//Matrix3D Model;
 
 		int JointsRendered = 21;
 
-		for(int i = 1; i < JointsRendered; i++)		//assign gfterdfij3ot
+		for(int i = 1; i < JointsRendered; i++)
 		{
-			// Model.matris[3][0] = ListOfJoints[i].coordinates.matris[3][0];
-			// Model.matris[3][1] = ListOfJoints[i].coordinates.matris[3][1];
-			// Model.matris[3][2] = ListOfJoints[i].coordinates.matris[3][2];
-			// //Model.matris[3][2] = 10;
-
 			Matrix3D ScaleMatrix;
 
 			ScaleMatrix.matris[0][0] = ScaleMatrix.matris[1][1] = ScaleMatrix.matris[2][2] = 0.03;
@@ -605,36 +627,20 @@ void ExampleApp::Run()
 		glBindBuffer(GL_ARRAY_BUFFER, LinesBuffer);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-		for(int i = 2; i < JointsRendered; i++)		//assign gfterdfij3ot
+		for(int i = 2; i < JointsRendered; i++)
 		{
 			GLfloat lineVertices[] = 
 			{
 				0, 0, 0,
 				ListOfJoints[i].VectorOfCoordinates[0], ListOfJoints[i].VectorOfCoordinates[1], ListOfJoints[i].VectorOfCoordinates[2]
+				//ListOfJoints[i].coordinates.matris[3][0], ListOfJoints[i].coordinates.matris[3][1], ListOfJoints[i].coordinates.matris[3][2]
 			};
-
-			// GLfloat lineVertices[] = 
-			// {
-			// 	0, 0, 0,
-			// 	1, 1, 0
-			// };
 
 			glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
 
 			glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[ ListOfJoints[i].parent].coordinates).matris[0][0]);
 			glDrawArrays(GL_LINES, 0, 2);
 		}
-
-
-
-		// Model.matris[3][0] = -10;
-		// Model.matris[3][1] = 10;
-		// //Model.matris[3][2] = 10;
-		// glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP*Model).matris[0][0]);
-		// glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-
-
-
 
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);		//int index;

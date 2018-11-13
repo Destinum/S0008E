@@ -458,12 +458,6 @@ X11_xf86vmode_INCLUDE_PATH:PATH=/usr/include
 core_LIB_DEPENDS:STATIC=general;glew;
 
 //Value Computed by CMake
-example_BINARY_DIR:STATIC=/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build/projects/example
-
-//Value Computed by CMake
-example_SOURCE_DIR:STATIC=/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/example
-
-//Value Computed by CMake
 glew_BINARY_DIR:STATIC=/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build/exts/glew
 
 //Dependencies for target

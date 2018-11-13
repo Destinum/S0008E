@@ -163,20 +163,14 @@
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/PathTracing/CMakeFiles/PathTracing.dir/code/exampleapp.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/exampleapp.cc",
-  "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/exampleapp.cc"
-},
-
-{
-  "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
   "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/PathTracing/CMakeFiles/PathTracing.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/main.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/main.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/PathTracing/CMakeFiles/PathTracing.dir/code/tinyxml2.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/tinyxml2.cc",
-  "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/tinyxml2.cc"
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/NAX3parser.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/NAX3parser.cc",
+  "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/NAX3parser.cc"
 },
 
 {

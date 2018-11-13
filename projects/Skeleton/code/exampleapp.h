@@ -44,6 +44,8 @@ public:
 
 	void UpdateChildren(int index);
 
+	void ChangeAnimation(int* AnimationIndex, int* AnimationFrame);
+
 	struct joint
 	{
 		string name;
