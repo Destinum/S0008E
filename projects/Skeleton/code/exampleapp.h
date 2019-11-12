@@ -74,6 +74,7 @@ private:
 	//GLuint color2;
 
 	GLuint MatrixID;
+	GLuint TheJoints;
 	Matrix3D MVP;
 
 	//GLuint MeshBuffer;

@@ -25,7 +25,7 @@ rule CUSTOM_COMMAND
 rule CXX_COMPILER__imgui
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -44,7 +44,7 @@ rule CXX_STATIC_LIBRARY_LINKER__imgui
 rule C_COMPILER__nanovg
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
+  command = /usr/bin/gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
   description = Building C object $out
 
 
@@ -63,7 +63,7 @@ rule CXX_STATIC_LIBRARY_LINKER__nanovg
 rule C_COMPILER__glew
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
+  command = /usr/bin/gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
   description = Building C object $out
 
 
@@ -82,7 +82,7 @@ rule C_STATIC_LIBRARY_LINKER__glew
 rule C_COMPILER__glfw
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
+  command = /usr/bin/gcc-7 $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
   description = Building C object $out
 
 
@@ -101,7 +101,7 @@ rule C_STATIC_LIBRARY_LINKER__glfw
 rule CXX_COMPILER__core
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -120,7 +120,7 @@ rule CXX_STATIC_LIBRARY_LINKER__core
 rule CXX_COMPILER__render
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -139,7 +139,7 @@ rule CXX_STATIC_LIBRARY_LINKER__render
 rule CXX_COMPILER__ImGuiExample
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -147,7 +147,7 @@ rule CXX_COMPILER__ImGuiExample
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__ImGuiExample
-  command = $PRE_LINK && /usr/bin/x86_64-linux-gnu-g++-7  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  command = $PRE_LINK && /usr/bin/c++  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 
@@ -158,7 +158,7 @@ rule CXX_EXECUTABLE_LINKER__ImGuiExample
 rule CXX_COMPILER__PathTracing
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -166,7 +166,7 @@ rule CXX_COMPILER__PathTracing
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__PathTracing
-  command = $PRE_LINK && /usr/bin/x86_64-linux-gnu-g++-7  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  command = $PRE_LINK && /usr/bin/c++  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 
@@ -177,7 +177,7 @@ rule CXX_EXECUTABLE_LINKER__PathTracing
 rule CXX_COMPILER__Skeleton
   depfile = $DEP_FILE
   deps = gcc
-  command = /usr/bin/x86_64-linux-gnu-g++-7  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = /usr/bin/c++  $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -185,7 +185,7 @@ rule CXX_COMPILER__Skeleton
 # Rule for linking CXX executable.
 
 rule CXX_EXECUTABLE_LINKER__Skeleton
-  command = $PRE_LINK && /usr/bin/x86_64-linux-gnu-g++-7  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
+  command = $PRE_LINK && /usr/bin/c++  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
 

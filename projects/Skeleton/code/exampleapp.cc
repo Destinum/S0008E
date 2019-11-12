@@ -5,17 +5,115 @@
 #include "config.h"
 #include "exampleapp.h"
 #include "NAX3parser.h"
+#include "nvx2streamreader.h"
+#include "nvx2fileformatstructs.h"
+//#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 //#include "objloader.hpp"
 #include <cstring>
 
 #include <sstream>
+
 
 const GLchar* vs =
 "#version 430\n"
 //"layout(location=0) in vec3 pos;\n"
 "layout(location=0) in vec4 pos;\n"
 "layout(location=1) in vec4 color;\n"
-"layout(location=0) out vec4 Color;\n"
+"layout(location=2) in vec2 InTexture;\n"
+"layout(location=3) in vec4 Weights;\n"
+"layout(location=4) in ivec4 Indices;\n"
+"layout(location=5) in float WeightSize;\n"
+
+"out vec4 Color;\n"
+"out vec2 TheTexture;\n"
+
+"uniform mat4 MVP;\n"
+"uniform mat4 ListOfJoints[21];\n"
+//"uniform mat4 ScaleMatrix;\n"
+//"uniform int JointIndex;\n"
+
+"void main()\n"
+"{\n"
+
+"	vec4 Weights2 = Weights / 255.0;\n"
+//"	vec4 Weights2 = Weights;\n"
+//"	vec4 Weights2 = Weights / WeightSize;\n"
+
+"	mat4 BoneTransformation = ListOfJoints[Indices[0]] * Weights2[0];\n"
+"	BoneTransformation += ListOfJoints[Indices[1]] * Weights2[1];\n"
+"	BoneTransformation += ListOfJoints[Indices[2]] * Weights2[2];\n"
+"	BoneTransformation += ListOfJoints[Indices[3]] * Weights2[3];\n"
+
+/*"	vec4 ThePos = ListOfJoints[Indices[0]] * (pos * Weights[0]);\n"
+"	ThePos += ListOfJoints[Indices[1]] * (pos * Weights2[1]);\n"
+"	ThePos += ListOfJoints[Indices[2]] * (pos * Weights2[2]);\n"
+"	ThePos += ListOfJoints[Indices[3]] * (pos * Weights2[3]);\n"*/
+
+
+/*"	float Scalar = Weights[0] / WeightSize;\n"
+"	vec4 ScaleVector = pos * Scalar;\n"
+"	vec4 ThePos = ListOfJoints[Indices[0]] * ScaleVector;\n"
+
+"	Scalar = Weights[1] / WeightSize;\n"
+"	ScaleVector = pos * Scalar;\n"
+"	ThePos += ListOfJoints[Indices[1]] * ScaleVector;\n"
+
+"	Scalar = Weights[2] / WeightSize;\n"
+"	ScaleVector = pos * Scalar;\n"
+"	ThePos += ListOfJoints[Indices[2]] * ScaleVector;\n"
+
+"	Scalar = Weights[3] / WeightSize;\n"
+"	ScaleVector = pos * Scalar;\n"
+"	ThePos += ListOfJoints[Indices[3]] * ScaleVector;\n"*/
+
+//"	gl_Position = vec4(pos, 1);\n"
+//"	gl_Position = MVP * pos;\n"
+//"	gl_Position = MVP * ListOfJoints[JointIndex] * ScaleMatrix * pos;\n"
+"	vec4 ThePos = BoneTransformation * pos;\n"
+"	gl_Position = MVP * ThePos;\n"
+//"	gl_Position = MVP * vec4(ThePos.xyz, 1.0);\n"
+
+"	Color = color;\n"
+"	TheTexture = InTexture;\n"
+"}\n";
+
+const GLchar* ps =
+"#version 430\n"
+
+"struct Material\n" 
+"{\n"
+"    sampler2D diffuse;\n"
+"    vec3      specular;\n"
+"    float     shininess;\n"
+"};\n"
+
+"in vec4 Color;\n"
+"in vec2 TheTexture;\n"
+
+"uniform sampler2D ourTexture;\n"
+
+"out vec4 color;\n"
+
+"void main()\n"
+"{\n"
+
+//"	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));\n"
+//"	vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));\n"
+
+
+//"	color = Color;\n"
+"	color = texture(ourTexture, TheTexture);\n"
+"}\n";
+
+
+/*
+const GLchar* vs =
+"#version 430\n"
+//"layout(location=0) in vec3 pos;\n"
+"layout (location = 0) in vec3 aPos;\n"
+"layout (location = 1) in vec3 aColor;\n"
+"layout (location = 2) in vec2 aTexCoord;\n"
 "uniform mat4 MVP;\n"
 "void main()\n"
 "{\n"
@@ -32,6 +130,7 @@ const GLchar* ps =
 "{\n"
 "	Color = color;\n"
 "}\n";
+*/
 
 using namespace Display;
 namespace Example
@@ -136,6 +235,7 @@ ExampleApp::Open()
 		}
 
 		this->MatrixID = glGetUniformLocation(this->program, "MVP");			//Added stuff
+		this->TheJoints = glGetUniformLocation(this->program, "ListOfJoints");
 
 
 		//setup vbo
@@ -472,6 +572,12 @@ void ExampleApp::ChangeAnimation(int* AnimationIndex, int* AnimationFrame)
 
 void ExampleApp::Run()
 {
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS); 
+		
+
 	tinyxml2::XMLDocument doc;
 
 
@@ -492,9 +598,9 @@ void ExampleApp::Run()
 	}
 
 
-	cout << ListOfJoints[0].name << endl;
+	/*cout << ListOfJoints[0].name << endl;
 	cout << ListOfJoints[1].name << endl;
-	cout << ListOfJoints[20].name << endl;
+	cout << ListOfJoints[20].name << endl;*/
 
 	
 		// Read the .obj file
@@ -514,6 +620,8 @@ void ExampleApp::Run()
 			ListToBuffer[n + 1] = vertices[i].vektor[1];
 			ListToBuffer[n + 2] = vertices[i].vektor[2];
 			ListToBuffer[n + 3] = vertices[i].vektor[3];
+
+			//cout << ListToBuffer[n] << " :: " << ListToBuffer[n + 1] << " :: " << ListToBuffer[n + 2] << " :: " << ListToBuffer[n + 3] << endl;
 		}
 
 		GLuint ObjectVertexBuffer;
@@ -530,13 +638,49 @@ void ExampleApp::Run()
 	
 
 		const char* NAX3filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.nax3";
-
 		CoreAnimation::NAX3parser AnimationParser;
-		
 		AnimationParser.SetupFromNax3(NAX3filepath);
 
+		//Current Stuff
+
+		const char* nvx2filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.nvx2";
+		CoreGraphics::nvx2parser ModelParser;
+		ModelParser.SetupFromNvx2(nvx2filepath);
 
 
+
+		unsigned int texture;
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
+		// set the texture wrapping/filtering options (on the currently bound texture object)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// load and generate the texture
+		int width, height, nrChannels;
+		//unsigned char *data1 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Diffuse.tga", &width, &height, &nrChannels, 0);
+		unsigned char *data2 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Normal.tga", &width, &height, &nrChannels, 0); 
+		//unsigned char *data3 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Specular.tga", &width, &height, &nrChannels, 0); 
+ 
+		if (/*data1 &&*/ data2 /*&& data3*/)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data2);
+			//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			std::cout << "Failed to load texture" << std::endl;
+		}
+		//stbi_image_free(data1);
+		stbi_image_free(data2);
+		//stbi_image_free(data3);
+
+		//cout << vertices.size() << endl;
+		//cout << ModelParser.vertices.size() << endl;
+
+		//Current Stuff Ends
 
 	while (this->window->IsOpen())
 	{
@@ -603,29 +747,45 @@ void ExampleApp::Run()
 		computeMatricesFromInputs();
 
 		glEnableVertexAttribArray(0);
-		//glEnableVertexAttribArray(1);
+		glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP).matris[0][0]);
 
-
-
-
-		glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
 
 		int JointsRendered = 21;
 
-		for(int i = 1; i < JointsRendered; i++)
+		//Current Stuff
+
+		Matrix3D JointCoordinates[JointsRendered];
+
+		for (int i = 0; i < JointsRendered; i++)
 		{
-			Matrix3D ScaleMatrix;
-
-			ScaleMatrix.matris[0][0] = ScaleMatrix.matris[1][1] = ScaleMatrix.matris[2][2] = 0.03;
-
-			glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[i].coordinates * ScaleMatrix).matris[0][0]);
-			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+			JointCoordinates[i] = ListOfJoints[i].coordinates;
 		}
 
+		glUniformMatrix4fv(this->TheJoints, JointsRendered, GL_FALSE, &(JointCoordinates[0]).matris[0][0]);		//Transpose?????
+
+		//Current Stuff End
+
+		
+		/*glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		Matrix3D ScaleMatrix;
+		ScaleMatrix.matris[0][0] = ScaleMatrix.matris[1][1] = ScaleMatrix.matris[2][2] = 0.03;
+		glUniformMatrix4fv(glGetUniformLocation(this->program, "ScaleMatrix"), 1, GL_FALSE, &ScaleMatrix.matris[0][0]);
+
+		for(int i = 1; i < JointsRendered; i++)
+		{
+			//glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[i].coordinates * ScaleMatrix).matris[0][0]);
+			glUniform1i(glGetUniformLocation(program, "JointIndex"), i);
+			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+		}
+		
 
 		glBindBuffer(GL_ARRAY_BUFFER, LinesBuffer);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		Matrix3D ScaleMatrix2;
+		glUniformMatrix4fv(glGetUniformLocation(this->program, "ScaleMatrix"), 1, GL_FALSE, &ScaleMatrix2.matris[0][0]);
 
 		for(int i = 2; i < JointsRendered; i++)
 		{
@@ -638,14 +798,57 @@ void ExampleApp::Run()
 
 			glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
 
-			glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[ ListOfJoints[i].parent].coordinates).matris[0][0]);
+			//glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[ ListOfJoints[i].parent].coordinates).matris[0][0]);
+			glUniform1i(glGetUniformLocation(program, "JointIndex"), ListOfJoints[i].parent);
 			glDrawArrays(GL_LINES, 0, 2);
-		}
+		}*/
+
+
+		//Current Stuff
+
+		//glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+		glEnableVertexAttribArray(3);
+		glEnableVertexAttribArray(4);
+		glEnableVertexAttribArray(5);
+
+		glBindBuffer(GL_ARRAY_BUFFER, ModelParser.VertexBuffer);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), NULL);
+		//glBindTexture(GL_TEXTURE_2D, texture);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)( 4 * sizeof(float)));
+		glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)( 6 * sizeof(float)));
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, ModelParser.BoneDataBuffer);
+		glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, 2 * sizeof(float), NULL);
+		glVertexAttribIPointer(4, 4, GL_UNSIGNED_BYTE, 2 * sizeof(float), (void*)(sizeof(float)));
+
+
+		//glBindBuffer(GL_ARRAY_BUFFER, this->color);
+		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		glDrawArrays(GL_TRIANGLES, 0, ModelParser.vertices.size());
+		//glDrawArrays(GL_TRIANGLES, 0, 1);
+
+
+		//glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
+		glDisableVertexAttribArray(3);
+		glDisableVertexAttribArray(4);
+		glDisableVertexAttribArray(5);
+
+		
+
+		//Current Stuff Ends
+
+
 
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);		//int index;
 
-		this->window->SwapBuffers();		//int index;*/
+		glDisableVertexAttribArray(0);
+
+		this->window->SwapBuffers();			//int index;
 	}
 }
 

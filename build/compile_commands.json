@@ -1,193 +1,199 @@
 [
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui.cpp",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui.cpp",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui.cpp"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui_demo.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_demo.cpp",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui_demo.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_demo.cpp",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_demo.cpp"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui_draw.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_draw.cpp",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/imgui_draw.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_draw.cpp",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/imgui_draw.cpp"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/glew/include -I../exts/glfw/include -I../exts/nanovg/src   -std=c++11 -g   -o exts/CMakeFiles/imgui.dir/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -I../exts/nanovg/src -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example  -g   -o exts/CMakeFiles/nanovg.dir/nanovg/src/nanovg.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/nanovg/src/nanovg.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -I../exts/nanovg/src -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example  -g   -o exts/CMakeFiles/nanovg.dir/nanovg/src/nanovg.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/nanovg/src/nanovg.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/nanovg/src/nanovg.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -I../exts/glew/include  -g   -o exts/glew/CMakeFiles/glew.dir/src/glew.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glew/src/glew.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -I../exts/glew/include  -g   -o exts/glew/CMakeFiles/glew.dir/src/glew.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glew/src/glew.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glew/src/glew.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/context.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/context.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/context.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/init.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/init.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/init.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/init.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/init.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/input.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/input.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/input.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/input.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/input.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/monitor.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/monitor.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/monitor.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/monitor.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/monitor.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/vulkan.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/vulkan.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/vulkan.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/window.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/window.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/window.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/window.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/window.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_init.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_init.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_init.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_monitor.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_monitor.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_monitor.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_window.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_window.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/x11_window.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/xkb_unicode.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/xkb_unicode.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/xkb_unicode.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/linux_joystick.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/linux_joystick.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/linux_joystick.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_time.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_time.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_time.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_tls.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/posix_tls.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_tls.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/posix_tls.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/glx_context.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/glx_context.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/glx_context.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/egl_context.c",
+  "command": "/usr/bin/gcc-7 -DGLEW_STATIC -D_GLFW_USE_CONFIG_H -I../exts/glfw/include -I../exts/glfw/src -Iexts/glfw/src  -g -fPIC   -Wall -o exts/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o   -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/egl_context.c",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/exts/glfw/src/egl_context.c"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/core/CMakeFiles/core.dir/app.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/core/app.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/core/CMakeFiles/core.dir/app.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/core/app.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/core/app.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/core/CMakeFiles/core.dir/__/config.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/core/CMakeFiles/core.dir/__/config.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/render/CMakeFiles/render.dir/window.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/render/window.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/render/CMakeFiles/render.dir/window.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/render/window.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/render/window.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/render/CMakeFiles/render.dir/__/config.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o engine/render/CMakeFiles/render.dir/__/config.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/engine/config.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/ImGuiExample/CMakeFiles/ImGuiExample.dir/code/exampleapp.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/exampleapp.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/ImGuiExample/CMakeFiles/ImGuiExample.dir/code/exampleapp.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/exampleapp.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/exampleapp.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/ImGuiExample/CMakeFiles/ImGuiExample.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/main.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/ImGuiExample/CMakeFiles/ImGuiExample.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/main.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/ImGuiExample/code/main.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/PathTracing/CMakeFiles/PathTracing.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/main.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/PathTracing/CMakeFiles/PathTracing.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/main.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/PathTracing/code/main.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/NAX3parser.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/NAX3parser.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/NAX3parser.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/NAX3parser.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/NAX3parser.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/exampleapp.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/exampleapp.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/exampleapp.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/exampleapp.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/exampleapp.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/main.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/main.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/main.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/main.cc"
 },
 
 {
   "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
-  "command": "/usr/bin/x86_64-linux-gnu-g++-7  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/tinyxml2.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/tinyxml2.cc",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/nvx2streamreader.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/nvx2streamreader.cc",
+  "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/nvx2streamreader.cc"
+},
+
+{
+  "directory": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/build",
+  "command": "/usr/bin/c++  -DGLEW_STATIC -I../engine -I../exts/glew/include -I../exts/glfw/include -I../exts/imgui -I../exts/imgui/examples/opengl3_example -I../exts/nanovg/src   -std=c++11 -g   -o projects/Skeleton/CMakeFiles/Skeleton.dir/code/tinyxml2.cc.o -c /home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/tinyxml2.cc",
   "file": "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/code/tinyxml2.cc"
 }
 ]

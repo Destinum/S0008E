@@ -23,7 +23,7 @@ namespace CoreAnimation
 		int length = AnimationFile.tellg();
 		AnimationFile.seekg (0, AnimationFile.beg);
 
-		cout << "File length: " << length << endl;
+		//cout << "File length: " << length << endl;
 
 		char theBuffer[length];
 		char * buffer = theBuffer;
@@ -39,9 +39,9 @@ namespace CoreAnimation
     	buffer += sizeof(Nax3Header);
 		//BufferIndex += sizeof(Nax3Header);
 
-		cout << "Magic: "<< naxHeader->magic << endl;
+		/*cout << "Magic: "<< naxHeader->magic << endl;
 		cout << "numClips: " << naxHeader->numClips << endl;
-		cout << "numKeys: " << naxHeader->numKeys << endl;
+		cout << "numKeys: " << naxHeader->numKeys << endl;*/
 
 		//if (naxHeader->numClips > 0)
 		for (uint ClipIndex = 0; ClipIndex < naxHeader->numClips; ClipIndex++)
@@ -56,7 +56,7 @@ namespace CoreAnimation
 			else
 				CurrentAnimationPosition.push_back(CurrentAnimationPosition[ClipIndex - 1] + ListOfClips[ClipIndex - 1]->numKeys);
 
-			cout << endl;
+			/*cout << endl;
 			cout << "numCurves: " << naxClip->numCurves << endl;
 			cout << "startKeyIndex: " << naxClip->startKeyIndex << endl;
 			cout << "numKeys: " << naxClip->numKeys << endl;
@@ -65,7 +65,7 @@ namespace CoreAnimation
 			cout << "preInfinityType: " << static_cast<unsigned>(naxClip->preInfinityType) << endl;
 			cout << "postInfinityType: " << static_cast<unsigned>(naxClip->postInfinityType) << endl;
 			cout << "numEvents: " << naxClip->numEvents << endl;
-			cout << "name: " << naxClip->name << endl;
+			cout << "name: " << naxClip->name << endl;*/
 
 			for(ushort EventIndex = 0; EventIndex < naxClip->numEvents; EventIndex++)
 			{
