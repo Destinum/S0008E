@@ -46,6 +46,10 @@ public:
 
 	void ChangeAnimation(int* AnimationIndex, int* AnimationFrame);
 
+	unsigned int LoadTexture(char const* filepath);
+
+	Vector3D Slerp(Vector3D Quaternion1, Vector3D Quaternion2, float t);
+
 	struct joint
 	{
 		string name;
@@ -55,6 +59,7 @@ public:
 		Matrix3D coordinates;
 		vector<float> VectorOfCoordinates;
 		Vector3D rotation;
+		Matrix3D InverseBindPose;
 
 		vector<int> ListOfChildren;
 	};
@@ -74,8 +79,12 @@ private:
 	//GLuint color2;
 
 	GLuint MatrixID;
+	GLuint ViewMatrixID;
+	GLuint CameraPositionID;
 	GLuint TheJoints;
 	Matrix3D MVP;
+	Matrix3D Projection;
+	Matrix3D View;
 
 	//GLuint MeshBuffer;
 

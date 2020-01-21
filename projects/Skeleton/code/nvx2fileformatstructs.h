@@ -61,15 +61,10 @@ struct Nvx2Group
 struct Nvx2Vertex
 {
 	float Coordinates[3];
-	float NormalB4N;
+    unsigned char NormalB4N[4];
 	float UVs[2];
-	float TangentB4N;
-	float BinormalB4N;
-	//float WeightsUB4N;
-	//float IndicesUB4;
-	//int IndicesUB4[4];
-	//uint WeightsUB4N;
-	//uint IndicesUB4;
+	unsigned char TangentB4N[4];
+	unsigned char BinormalB4N[4];
     unsigned char WeightsUB4N[4];
 	unsigned char IndicesUB4[4];
 
@@ -198,6 +193,7 @@ public:
     //vector<Vector3D*> ListOfKeys;
 	GLuint VertexBuffer;
     GLuint BoneDataBuffer;
+    GLuint NormalsBuffer;
 	//vector<Vector3D*> vertices;
 	vector<Nvx2Vertex*> vertices;
 

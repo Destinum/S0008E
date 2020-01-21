@@ -207,36 +207,36 @@ inline Matrix3D Matrix3D::inverse()
 		a13*a21*a32*a44 + a13*a22*a34*a41 + a13*a24*a31*a42 +
 		a14*a21*a33*a42 + a14*a22*a31*a43 + a14*a23*a32*a41 -
 
-		a11*a22*a34*a43 + a11*a23*a32*a44 + a11*a24*a33*a42 -
-		a12*a21*a33*a44 + a12*a23*a34*a41 + a12*a24*a31*a43 -
-		a13*a21*a34*a42 + a13*a22*a31*a44 + a13*a24*a32*a41 -
-		a14*a21*a32*a43 + a14*a22*a33*a41 + a14*a23*a31*a42;
+		a11*a22*a34*a43 - a11*a23*a32*a44 - a11*a24*a33*a42 -
+		a12*a21*a33*a44 - a12*a23*a34*a41 - a12*a24*a31*a43 -
+		a13*a21*a34*a42 - a13*a22*a31*a44 - a13*a24*a32*a41 -
+		a14*a21*a32*a43 - a14*a22*a33*a41 - a14*a23*a31*a42;
 	
-	if (determinant = 0)
+	if (determinant == 0.0)
 	{
 		cout << "This matrix does not have an inverse." << endl;
 		return noResult;
 	}
 
-	Inverse.matris[0][0] = 1 / determinant * (a22*a33*a44 + a23*a34*a42 + a24*a32*a43 - a22*a34*a43 - a23*a32*a44 - a23*a33*a42);
-	Inverse.matris[1][0] = 1 / determinant * (a12*a34*a43 + a13*a32*a44 + a14*a33*a42 - a12*a33*a44 - a13*a34*a42 - a14*a32*a43);
-	Inverse.matris[2][0] = 1 / determinant * (a12*a23*a44 + a13*a24*a42 + a14*a22*a43 - a12*a24*a43 - a13*a22*a44 - a14*a23*a42);
-	Inverse.matris[3][0] = 1 / determinant * (a12*a24*a33 + a13*a22*a34 + a14*a23*a32 - a12*a23*a34 - a13*a24*a32 - a14*a22*a33);
+	Inverse.matris[0][0] = 1.0 / determinant * (a22*a33*a44 + a23*a34*a42 + a24*a32*a43 - a22*a34*a43 - a23*a32*a44 - a24*a33*a42);
+	Inverse.matris[1][0] = 1.0 / determinant * (a12*a34*a43 + a13*a32*a44 + a14*a33*a42 - a12*a33*a44 - a13*a34*a42 - a14*a32*a43);
+	Inverse.matris[2][0] = 1.0 / determinant * (a12*a23*a44 + a13*a24*a42 + a14*a22*a43 - a12*a24*a43 - a13*a22*a44 - a14*a23*a42);
+	Inverse.matris[3][0] = 1.0 / determinant * (a12*a24*a33 + a13*a22*a34 + a14*a23*a32 - a12*a23*a34 - a13*a24*a32 - a14*a22*a33);
 
-	Inverse.matris[0][1] = 1 / determinant * (a21*a34*a43 + a23*a31*a44 + a24*a33*a41 - a21*a33*a44 - a23*a33*a41 - a24*a31*a43);
-	Inverse.matris[1][1] = 1 / determinant * (a11*a33*a44 + a13*a34*a41 + a14*a31*a43 - a11*a34*a43 - a13*a31*a44 - a14*a33*a41);
-	Inverse.matris[2][1] = 1 / determinant * (a11*a24*a43 + a13*a21*a44 + a14*a23*a41 - a11*a23*a44 - a13*a24*a41 - a14*a21*a43);
-	Inverse.matris[3][1] = 1 / determinant * (a11*a23*a34 + a13*a24*a31 + a14*a21*a33 - a11*a24*a33 - a13*a21*a34 - a14*a23*a31);
+	Inverse.matris[0][1] = 1.0 / determinant * (a21*a34*a43 + a23*a31*a44 + a24*a33*a41 - a21*a33*a44 - a23*a33*a41 - a24*a31*a43);
+	Inverse.matris[1][1] = 1.0 / determinant * (a11*a33*a44 + a13*a34*a41 + a14*a31*a43 - a11*a34*a43 - a13*a31*a44 - a14*a33*a41);
+	Inverse.matris[2][1] = 1.0 / determinant * (a11*a24*a43 + a13*a21*a44 + a14*a23*a41 - a11*a23*a44 - a13*a24*a41 - a14*a21*a43);
+	Inverse.matris[3][1] = 1.0 / determinant * (a11*a23*a34 + a13*a24*a31 + a14*a21*a33 - a11*a24*a33 - a13*a21*a34 - a14*a23*a31);
 
-	Inverse.matris[0][2] = 1 / determinant * (a21*a32*a44 + a22*a34*a41 + a24*a31*a42 - a21*a34*a42 - a22*a31*a44 - a24*a32*a41);
-	Inverse.matris[1][2] = 1 / determinant * (a11*a34*a42 + a12*a31*a44 + a14*a32*a41 - a11*a32*a44 - a12*a34*a41 - a14*a31*a42);
-	Inverse.matris[2][2] = 1 / determinant * (a11*a22*a44 + a12*a24*a41 + a14*a21*a42 - a11*a24*a42 - a12*a21*a44 - a14*a22*a41);
-	Inverse.matris[3][2] = 1 / determinant * (a11*a24*a32 + a12*a21*a34 + a14*a22*a31 - a11*a22*a34 - a12*a24*a31 - a14*a21*a32);
+	Inverse.matris[0][2] = 1.0 / determinant * (a21*a32*a44 + a22*a34*a41 + a24*a31*a42 - a21*a34*a42 - a22*a31*a44 - a24*a32*a41);
+	Inverse.matris[1][2] = 1.0 / determinant * (a11*a34*a42 + a12*a31*a44 + a14*a32*a41 - a11*a32*a44 - a12*a34*a41 - a14*a31*a42);
+	Inverse.matris[2][2] = 1.0 / determinant * (a11*a22*a44 + a12*a24*a41 + a14*a21*a42 - a11*a24*a42 - a12*a21*a44 - a14*a22*a41);
+	Inverse.matris[3][2] = 1.0 / determinant * (a11*a24*a32 + a12*a21*a34 + a14*a22*a31 - a11*a22*a34 - a12*a24*a31 - a14*a21*a32);
 
-	Inverse.matris[0][3] = 1 / determinant * (a21*a33*a42 + a22*a31*a43 + a23*a32*a41 - a21*a32*a43 - a22*a33*a41 - a23*a31*a42);
-	Inverse.matris[1][3] = 1 / determinant * (a11*a32*a43 + a12*a33*a41 + a13*a31*a42 - a11*a33*a42 - a12*a31*a43 - a13*a32*a41);
-	Inverse.matris[2][3] = 1 / determinant * (a11*a23*a42 + a12*a21*a43 + a13*a22*a41 - a11*a22*a43 - a12*a23*a41 - a13*a21*a42);
-	Inverse.matris[3][3] = 1 / determinant * (a11*a22*a33 + a12*a23*a31 + a13*a21*a32 - a11*a23*a32 - a12*a21*a33 - a13*a22*a31);
+	Inverse.matris[0][3] = 1.0 / determinant * (a21*a33*a42 + a22*a31*a43 + a23*a32*a41 - a21*a32*a43 - a22*a33*a41 - a23*a31*a42);
+	Inverse.matris[1][3] = 1.0 / determinant * (a11*a32*a43 + a12*a33*a41 + a13*a31*a42 - a11*a33*a42 - a12*a31*a43 - a13*a32*a41);
+	Inverse.matris[2][3] = 1.0 / determinant * (a11*a23*a42 + a12*a21*a43 + a13*a22*a41 - a11*a22*a43 - a12*a23*a41 - a13*a21*a42);
+	Inverse.matris[3][3] = 1.0 / determinant * (a11*a22*a33 + a12*a23*a31 + a13*a21*a32 - a11*a23*a32 - a12*a21*a33 - a13*a22*a31);
 
 	return Inverse;
 }

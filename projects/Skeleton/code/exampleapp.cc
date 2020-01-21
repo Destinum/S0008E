@@ -5,132 +5,191 @@
 #include "config.h"
 #include "exampleapp.h"
 #include "NAX3parser.h"
-#include "nvx2streamreader.h"
 #include "nvx2fileformatstructs.h"
 //#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-//#include "objloader.hpp"
 #include <cstring>
-
 #include <sstream>
+
 
 
 const GLchar* vs =
 "#version 430\n"
-//"layout(location=0) in vec3 pos;\n"
+
 "layout(location=0) in vec4 pos;\n"
 "layout(location=1) in vec4 color;\n"
 "layout(location=2) in vec2 InTexture;\n"
 "layout(location=3) in vec4 Weights;\n"
 "layout(location=4) in ivec4 Indices;\n"
-"layout(location=5) in float WeightSize;\n"
+"layout(location=5) in vec4 Normals;\n"
+"layout(location=6) in vec4 Tangents;\n"
+"layout(location=7) in vec4 Bitangents;\n"
 
-"out vec4 Color;\n"
-"out vec2 TheTexture;\n"
+//"out vec4 Color;\n"
+"out vec2 TextureCoordinates;\n"
+"out vec4 Position_worldspace;\n"
+//"out mat4 TBN;\n"
+"out mat3 TBN;\n"
+"out vec4 LightDirection_cameraspace;\n"
+"out vec4 LightDirection_worldspace;\n"
+"out vec4 EyeDirection_cameraspace;\n"
+"out vec4 TheNormals;\n"
 
 "uniform mat4 MVP;\n"
+"uniform mat4 ViewMatrix;\n"
+"uniform vec4 LightPosition;\n"
 "uniform mat4 ListOfJoints[21];\n"
-//"uniform mat4 ScaleMatrix;\n"
-//"uniform int JointIndex;\n"
+"uniform int ListOfIndices[21];\n"
+"uniform mat4 ScaleMatrix;\n"
+"uniform int JointIndex;\n"
+
 
 "void main()\n"
 "{\n"
+//"	Color = color;\n"
 
 "	vec4 Weights2 = Weights / 255.0;\n"
-//"	vec4 Weights2 = Weights;\n"
-//"	vec4 Weights2 = Weights / WeightSize;\n"
+"	mat4 BoneTransformation = ListOfJoints[ListOfIndices[Indices[0]]] * Weights2[0];\n"
+"	BoneTransformation += ListOfJoints[ListOfIndices[Indices[1]]] * Weights2[1];\n"
+"	BoneTransformation += ListOfJoints[ListOfIndices[Indices[2]]] * Weights2[2];\n"
+"	BoneTransformation += ListOfJoints[ListOfIndices[Indices[3]]] * Weights2[3];\n"
 
-"	mat4 BoneTransformation = ListOfJoints[Indices[0]] * Weights2[0];\n"
-"	BoneTransformation += ListOfJoints[Indices[1]] * Weights2[1];\n"
-"	BoneTransformation += ListOfJoints[Indices[2]] * Weights2[2];\n"
-"	BoneTransformation += ListOfJoints[Indices[3]] * Weights2[3];\n"
+//"	vec4 ThePos = BoneTransformation * pos;\n"								//Uncomment to add animation
+"	vec4 ThePos = pos;\n"													//Uncomment to remove animation
+"	gl_Position = MVP * ThePos;\n"
+"	Position_worldspace = ThePos;\n"
+"	TextureCoordinates = InTexture;\n"
 
-/*"	vec4 ThePos = ListOfJoints[Indices[0]] * (pos * Weights[0]);\n"
-"	ThePos += ListOfJoints[Indices[1]] * (pos * Weights2[1]);\n"
-"	ThePos += ListOfJoints[Indices[2]] * (pos * Weights2[2]);\n"
-"	ThePos += ListOfJoints[Indices[3]] * (pos * Weights2[3]);\n"*/
+"	vec4 VertexPosition_cameraspace = ViewMatrix * ThePos;\n"
+"	EyeDirection_cameraspace = - VertexPosition_cameraspace;\n"
+//"	EyeDirection_cameraspace = VertexPosition_cameraspace;\n"
+
+"	vec4 LightPosition_cameraspace = ViewMatrix * LightPosition;\n"
+//"	LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;\n"
+"	LightDirection_cameraspace = LightPosition_cameraspace - VertexPosition_cameraspace;\n"
+"	LightDirection_worldspace = LightPosition - ThePos;\n"
 
 
-/*"	float Scalar = Weights[0] / WeightSize;\n"
-"	vec4 ScaleVector = pos * Scalar;\n"
-"	vec4 ThePos = ListOfJoints[Indices[0]] * ScaleVector;\n"
-
-"	Scalar = Weights[1] / WeightSize;\n"
-"	ScaleVector = pos * Scalar;\n"
-"	ThePos += ListOfJoints[Indices[1]] * ScaleVector;\n"
-
-"	Scalar = Weights[2] / WeightSize;\n"
-"	ScaleVector = pos * Scalar;\n"
-"	ThePos += ListOfJoints[Indices[2]] * ScaleVector;\n"
-
-"	Scalar = Weights[3] / WeightSize;\n"
-"	ScaleVector = pos * Scalar;\n"
-"	ThePos += ListOfJoints[Indices[3]] * ScaleVector;\n"*/
-
-//"	gl_Position = vec4(pos, 1);\n"
 //"	gl_Position = MVP * pos;\n"
 //"	gl_Position = MVP * ListOfJoints[JointIndex] * ScaleMatrix * pos;\n"
-"	vec4 ThePos = BoneTransformation * pos;\n"
-"	gl_Position = MVP * ThePos;\n"
-//"	gl_Position = MVP * vec4(ThePos.xyz, 1.0);\n"
 
-"	Color = color;\n"
-"	TheTexture = InTexture;\n"
+/*"	vec3 T = mat3(ViewMatrix) * Tangents.xyz;\n"
+"	vec3 B = mat3(ViewMatrix) * Bitangents.xyz;\n"
+"	vec3 N = mat3(ViewMatrix) * Normals.xyz;\n"*/
+
+"	vec3 T = normalize(Tangents.xyz);\n"
+"	vec3 B = normalize(Bitangents.xyz);\n"
+"	vec3 N = normalize(Normals.xyz);\n"
+//"	T = normalize(T - dot(T, N) * N);\n"
+//"	vec3 B = cross(N, T);\n"
+
+"	TBN = transpose(mat3(T, B, N));\n"
+//"	TBN = mat3(T, B, N);\n"
+
+"	TheNormals = Normals;\n"													//Uncomment when not animated
+//"	TheNormals = BoneTransformation * Normals;\n"								//Uncomment when animated
+//"	TheNormals = Tangents;\n"
+//"	TBN = transpose(mat3(Tangents.xyz, Bitangents.xyz, Normals.xyz));\n"
+//"	LightDirection_worldspace = TBN * LightPosition - TBN * ThePos;\n"
+
 "}\n";
 
 const GLchar* ps =
 "#version 430\n"
+"out vec4 color;\n"
 
 "struct Material\n" 
 "{\n"
 "    sampler2D diffuse;\n"
-"    vec3      specular;\n"
-"    float     shininess;\n"
+"    sampler2D specular;\n"
+"    sampler2D normal;\n"
 "};\n"
 
-"in vec4 Color;\n"
-"in vec2 TheTexture;\n"
+"struct Light\n" 
+"{\n"
+"    vec4 position;\n"
+"    vec4 ambient;\n"
+"    vec4 diffuse;\n"
+"    vec4 specular;\n"
+"    float LightStrength;\n"
+"};\n"
 
-"uniform sampler2D ourTexture;\n"
+//"in vec4 Color;\n"
+"in vec2 TextureCoordinates;\n"
+"in vec4 Position_worldspace;\n"
+//"in mat4 TBN;\n"
+"in mat3 TBN;\n"
+"in vec4 LightDirection_cameraspace;\n"
+"in vec4 EyeDirection_cameraspace;\n"
 
-"out vec4 color;\n"
+"in vec4 LightDirection_worldspace;\n"
+"in vec4 TheNormals;\n"
+
+//"uniform sampler2D ourTexture;\n"
+"uniform Material TheMaterial;\n"
+"uniform Light LightSource;\n"
+"uniform vec4 CameraPosition;\n"
 
 "void main()\n"
 "{\n"
+	// normal
+"	vec3 normal = normalize(texture(TheMaterial.normal, TextureCoordinates).rbg * 2.0 - 1.0);\n"
+//"	vec3 normal = normalize(texture(TheMaterial.normal, TextureCoordinates).rbg);\n"
+//"	vec3 normal = normalize(texture(TheMaterial.normal, TextureCoordinates) + TheNormals).rbg;\n"
 
-//"	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));\n"
-//"	vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));\n"
+	// ambient
+"	vec4 ambient = LightSource.ambient * texture(TheMaterial.diffuse, TextureCoordinates);\n"
+
+	// Distance to the light
+"	float distance = length(LightSource.position - Position_worldspace);\n"
 
 
-//"	color = Color;\n"
-"	color = texture(ourTexture, TheTexture);\n"
+
+
+
+
+
+	// diffuse
+//"	vec3 l = normalize(TBN * LightDirection_cameraspace.xyz);\n"
+"	vec3 l = normalize(TBN * LightDirection_worldspace.xyz);\n"
+//"	vec3 l = normalize(TBN * LightSource.position.xyz - TBN * Position_worldspace.xyz);\n"
+"	float cosTheta = clamp(dot(normal, l), 0, 1);\n"
+//"	float cosTheta = max(dot(normal, l), 0.0);\n"
+
+/*"	vec3 norm = normalize(TheNormals.xyz);\n"
+"	vec3 l = normalize(LightDirection_worldspace.xyz);\n"
+"	float cosTheta = clamp(dot(norm, l), 0, 1);\n"*/
+
+"	vec4 diffuse = texture(TheMaterial.diffuse, TextureCoordinates) * LightSource.diffuse * LightSource.LightStrength * cosTheta / (distance*distance);\n"
+//"	vec4 diffuse = texture(TheMaterial.diffuse, TextureCoordinates) * LightSource.LightStrength * cosTheta / (distance*distance);\n"
+//"	vec4 diffuse = texture(TheMaterial.diffuse, TextureCoordinates);\n"
+
+
+
+
+
+
+
+	// specular
+//"	vec4 E = normalize(TBN * EyeDirection_cameraspace);\n"
+//"	vec4 E = vec4(normalize(TBN * EyeDirection_cameraspace.xyz), 1.0);\n"
+"	vec3 E = normalize(TBN * EyeDirection_cameraspace.xyz);\n"
+"	vec3 R = reflect(-l,normal);\n"
+"	float cosAlpha = clamp(dot(E, R), 0, 1);\n"
+//"	vec4 specular = texture(TheMaterial.specular, TextureCoordinates) * LightSource.specular * LightSource.LightStrength * pow(cosAlpha,5) / (distance*distance);\n"
+
+
+//"	color = ambient + diffuse + specular;\n"
+"	color = ambient + diffuse;\n"
+//"	color = texture(TheMaterial.diffuse, TextureCoordinates);\n"
+//"	color = (texture(TheMaterial.normal, TextureCoordinates) + 1) / 2;\n"
+//"	color = texture(TheMaterial.normal, TextureCoordinates);\n"
+//"	color = normalize((texture(TheMaterial.normal, TextureCoordinates) + TheNormals) * 2.0 - 1.0);\n"
+//"	color = TheNormals;\n"
+
 "}\n";
 
 
-/*
-const GLchar* vs =
-"#version 430\n"
-//"layout(location=0) in vec3 pos;\n"
-"layout (location = 0) in vec3 aPos;\n"
-"layout (location = 1) in vec3 aColor;\n"
-"layout (location = 2) in vec2 aTexCoord;\n"
-"uniform mat4 MVP;\n"
-"void main()\n"
-"{\n"
-//"	gl_Position = vec4(pos, 1);\n"
-"	gl_Position = MVP * pos;\n"
-"	Color = color;\n"
-"}\n";
-
-const GLchar* ps =
-"#version 430\n"
-"layout(location=0) in vec4 color;\n"
-"out vec4 Color;\n"
-"void main()\n"
-"{\n"
-"	Color = color;\n"
-"}\n";
-*/
 
 using namespace Display;
 namespace Example
@@ -235,6 +294,8 @@ ExampleApp::Open()
 		}
 
 		this->MatrixID = glGetUniformLocation(this->program, "MVP");			//Added stuff
+		this->ViewMatrixID = glGetUniformLocation(this->program, "ViewMatrix");
+		this->CameraPositionID = glGetUniformLocation(this->program, "CameraPosition");				
 		this->TheJoints = glGetUniformLocation(this->program, "ListOfJoints");
 
 
@@ -268,11 +329,13 @@ ExampleApp::Open()
 void ExampleApp::computeMatricesFromInputs(){
 
 	// glfwGetTime is called only once, the first time this function is called
-	static double lastTime = glfwGetTime();
+	static double theLastTime = glfwGetTime();
 
 	// Compute time difference between current and last frame
-	double currentTime = glfwGetTime();
-	float deltaTime = float(currentTime - lastTime);
+	double theCurrentTime = glfwGetTime();
+	float theDeltaTime = float(theCurrentTime - theLastTime);
+
+	//cout << theDeltaTime << endl;
 
 	// Get mouse position
 	double xpos, ypos;
@@ -306,33 +369,39 @@ void ExampleApp::computeMatricesFromInputs(){
 
 	// Move forward
 	if (glfwGetKey( window->window, GLFW_KEY_UP ) == GLFW_PRESS){
-		position = position + direction * deltaTime * speed;
+		position = position + direction * theDeltaTime * speed;
 	}
 	// Move backward
 	if (glfwGetKey( window->window, GLFW_KEY_DOWN ) == GLFW_PRESS){
-		position = position - direction * deltaTime * speed;
+		position = position - direction * theDeltaTime * speed;
 	}
 	// Strafe right
 	if (glfwGetKey( window->window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
-		position = position + right * deltaTime * speed;
+		position = position + right * theDeltaTime * speed;
 	}
 	// Strafe left
 	if (glfwGetKey( window->window, GLFW_KEY_LEFT ) == GLFW_PRESS){
-		position = position - right * deltaTime * speed;
+		position = position - right * theDeltaTime * speed;
 	}
 
 	//float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 
 
-	Matrix3D Projection = Projection.ProjectionMatrix(initialFoV, 4.0f/3.0f, 0.1f, 100.0f);
+	//Matrix3D Projection = Projection.ProjectionMatrix(initialFoV, 4.0f/3.0f, 0.1f, 100.0f);
+	this->Projection = Projection.ProjectionMatrix(initialFoV, 4.0f/3.0f, 0.1f, 100.0f);
 
-	Matrix3D View = View.ViewMatrix(position, position + direction, up);
+	//Matrix3D View = View.ViewMatrix(position, position + direction, up);
+	this->View = View.ViewMatrix(position, position + direction, up);
 	//Matrix3D View = View.ViewMatrix(position, Vector3D(0,0,0,1), Vector3D(0,1,0,1));
 
 	this->MVP = Projection * View;
 
+	glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP).matris[0][0]);
+	glUniformMatrix4fv(this->ViewMatrixID, 1, GL_FALSE, &(this->View).matris[0][0]);
+	glUniform4f(this->CameraPositionID, position.vektor[0], position.vektor[1], position.vektor[2], position.vektor[3]);
+
 	// For the next frame, the "last time" will be "now"
-	lastTime = currentTime;
+	theLastTime = theCurrentTime;
 }
 
 
@@ -400,6 +469,7 @@ void ExampleApp::AssignElementToJoint(const tinyxml2::XMLElement* theElement)
 	Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(ListOfJoints[index].rotation);
 
 	ListOfJoints[index].coordinates = TranslationMatrix * RotationMatrix;
+	ListOfJoints[index].InverseBindPose = ListOfJoints[index].coordinates.inverse();
 }
 
 
@@ -570,8 +640,84 @@ void ExampleApp::ChangeAnimation(int* AnimationIndex, int* AnimationFrame)
 	}
 }
 
+unsigned int ExampleApp::LoadTexture(char const* filepath)
+{
+		unsigned int texture;
+		glGenTextures(1, &texture);
+
+		// load and generate the texture
+		int width, height, nrChannels;
+		unsigned char *data = stbi_load(filepath, &width, &height, &nrChannels, 0);
+
+		if (data)
+		{
+			glBindTexture(GL_TEXTURE_2D, texture);
+
+			if (nrChannels == 4)
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+			else
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);	
+			
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			// set the texture wrapping/filtering options (on the currently bound texture object)
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
+		else
+		{
+			std::cout << "Failed to load texture" << std::endl;
+		}
+
+		stbi_image_free(data);
+		return texture;
+}
+
+Vector3D ExampleApp::Slerp(Vector3D Quaternion1, Vector3D Quaternion2, float t)
+{
+	Vector3D Out;
+	float theta, mult1, mult2;
+	float dotProduct = Quaternion1.vektor[0] * Quaternion2.vektor[0] + Quaternion1.vektor[1] * Quaternion2.vektor[1] + Quaternion1.vektor[2] * Quaternion2.vektor[2] + Quaternion1.vektor[3] * Quaternion2.vektor[3];
+
+	if(dotProduct < 0.0)
+	{
+		Quaternion2 = Quaternion2 * -1.0;
+		Quaternion2.vektor[3] *= -1.0;
+		dotProduct *= -1.0;
+	}
+
+	theta = acos(dotProduct);
+
+	if (theta > 0.0)
+	{
+		mult1 = sin((1.0-t) * theta) / sin(theta);
+		mult2 = sin(t * theta) / sin(theta);
+	} 
+
+	else
+	{
+		//cout << theta << endl;
+
+		mult1 = 1.0 - t;
+		mult2 = t;
+	}
+
+	Out.vektor[0] = mult1*Quaternion1.vektor[0] + mult2*Quaternion2.vektor[0];
+	Out.vektor[1] = mult1*Quaternion1.vektor[1] + mult2*Quaternion2.vektor[1];
+	Out.vektor[2] = mult1*Quaternion1.vektor[2] + mult2*Quaternion2.vektor[2];
+	Out.vektor[3] = mult1*Quaternion1.vektor[3] + mult2*Quaternion2.vektor[3];
+
+	return Out;
+}
+
+
 void ExampleApp::Run()
 {
+	glUseProgram(this->program);
+
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -579,10 +725,9 @@ void ExampleApp::Run()
 		
 
 	tinyxml2::XMLDocument doc;
+	const char* filepath = "./projects/Skeleton/footman/Unit_Footman.constants";
 
 
-
-	const char* filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.constants";
 	tinyxml2::XMLError eResult = doc.LoadFile(filepath);
 	if (eResult != tinyxml2::XML_SUCCESS) 
 	   cout << "No loaded file" << endl;
@@ -598,13 +743,19 @@ void ExampleApp::Run()
 	}
 
 
-	/*cout << ListOfJoints[0].name << endl;
-	cout << ListOfJoints[1].name << endl;
-	cout << ListOfJoints[20].name << endl;*/
+	GLint ListOfIndexes[21];
+	theElement = doc.FirstChildElement()->FirstChildElement()->FirstChildElement()->NextSiblingElement()->FirstChildElement()->FirstChildElement()->FirstChildElement();
+	const char* str = theElement->GetText();
+	vector<float> VectorOfIndexes = SplitAndConvertToFloat(str, ',');
+
+	for (int i = 0; i < 21; i++)
+		ListOfIndexes[i] = VectorOfIndexes[i];
+
+	glUniform1iv(glGetUniformLocation(this->program, "ListOfIndices"), 21, &ListOfIndexes[0]);
 
 	
 		// Read the .obj file
-		const char* filepathOfObject = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/Mesh/sphere.obj";
+		const char* filepathOfObject = "./projects/Skeleton/Mesh/sphere.obj";
 		vector<Vector3D> vertices;
 		vector<Vector2D>  uvs;
 		vector<Vector3D>  normals; // Won't be used at the moment.
@@ -620,8 +771,6 @@ void ExampleApp::Run()
 			ListToBuffer[n + 1] = vertices[i].vektor[1];
 			ListToBuffer[n + 2] = vertices[i].vektor[2];
 			ListToBuffer[n + 3] = vertices[i].vektor[3];
-
-			//cout << ListToBuffer[n] << " :: " << ListToBuffer[n + 1] << " :: " << ListToBuffer[n + 2] << " :: " << ListToBuffer[n + 3] << endl;
 		}
 
 		GLuint ObjectVertexBuffer;
@@ -632,62 +781,48 @@ void ExampleApp::Run()
 
 		GLuint LinesBuffer;
 		glGenBuffers(1, &LinesBuffer);
+										
 
-
-
-	
-
-		const char* NAX3filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.nax3";
-		CoreAnimation::NAX3parser AnimationParser;
-		AnimationParser.SetupFromNax3(NAX3filepath);
-
-		//Current Stuff
-
-		const char* nvx2filepath = "/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Unit_Footman.nvx2";
+		const char* nvx2filepath = "./projects/Skeleton/footman/Unit_Footman.nvx2";
 		CoreGraphics::nvx2parser ModelParser;
 		ModelParser.SetupFromNvx2(nvx2filepath);
 
 
+		const char* NAX3filepath = "./projects/Skeleton/footman/Unit_Footman.nax3";
+		CoreAnimation::NAX3parser AnimationParser;
+		AnimationParser.SetupFromNax3(NAX3filepath);
 
-		unsigned int texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		// set the texture wrapping/filtering options (on the currently bound texture object)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		// load and generate the texture
-		int width, height, nrChannels;
-		//unsigned char *data1 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Diffuse.tga", &width, &height, &nrChannels, 0);
-		unsigned char *data2 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Normal.tga", &width, &height, &nrChannels, 0); 
-		//unsigned char *data3 = stbi_load("/home/destinum/Documents/GrafikprogrammeringOchAlgoritmer/projects/Skeleton/footman/Footman_Specular.tga", &width, &height, &nrChannels, 0); 
- 
-		if (/*data1 &&*/ data2 /*&& data3*/)
-		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data2);
-			//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-		else
-		{
-			std::cout << "Failed to load texture" << std::endl;
-		}
-		//stbi_image_free(data1);
-		stbi_image_free(data2);
-		//stbi_image_free(data3);
 
-		//cout << vertices.size() << endl;
-		//cout << ModelParser.vertices.size() << endl;
+		unsigned int diffuse = LoadTexture("./projects/Skeleton/footman/Footman_Diffuse.tga");
+		unsigned int specular = LoadTexture("./projects/Skeleton/footman/Footman_Specular.tga");
+		unsigned int normal = LoadTexture("./projects/Skeleton/footman/Footman_Normal.tga");
 
-		//Current Stuff Ends
+		glUniform1i(glGetUniformLocation(this->program, "TheMaterial.diffuse"), 0);
+		glUniform1i(glGetUniformLocation(this->program, "TheMaterial.specular"), 1);
+		glUniform1i(glGetUniformLocation(this->program, "TheMaterial.normal"), 2);
 
+		Vector3D ThisLightPosition(-2.0f, 4.0f, 0.0f, 1.0);
+
+		//glUniform4f(glGetUniformLocation(this->program, "LightSource.position"), 0.5f, 1.0f, 0.3f, 1.0);
+		glUniform4f(glGetUniformLocation(this->program, "LightSource.position"), ThisLightPosition.vektor[0], ThisLightPosition.vektor[1], ThisLightPosition.vektor[2], ThisLightPosition.vektor[3]);
+		glUniform4f(glGetUniformLocation(this->program, "LightPosition"), ThisLightPosition.vektor[0], ThisLightPosition.vektor[1], ThisLightPosition.vektor[2], ThisLightPosition.vektor[3]);
+		glUniform4f(glGetUniformLocation(this->program, "LightSource.ambient"), 0.01f, 0.01f, 0.01f, 1.0);
+		glUniform4f(glGetUniformLocation(this->program, "LightSource.diffuse"), 1.0f, 1.0f, 1.0f, 1.0);
+		glUniform4f(glGetUniformLocation(this->program, "LightSource.specular"), 1.0f, 1.0f, 1.0f, 1.0);
+		glUniform1f(glGetUniformLocation(this->program, "LightSource.LightStrength"), 10.0f);
+
+		
 	while (this->window->IsOpen())
 	{
-		static int AnimationIndex = 2;
+		//Vector3D ThisLightPosition2 = this->View * ThisLightPosition;
+		//cout << "LightPosition ViewSpace: " << ThisLightPosition2.vektor[0] << " :: " << ThisLightPosition2.vektor[1] << " :: " << ThisLightPosition2.vektor[2] << " :: " << ThisLightPosition2.vektor[3] << endl << endl;
+
+
+		static int AnimationIndex = 6;
 
 		static double lastTime = glfwGetTime();
 		static int AnimationFrame = 0;
+
 
 		ChangeAnimation(&AnimationIndex, &AnimationFrame);
 
@@ -695,31 +830,45 @@ void ExampleApp::Run()
 		double currentTime = glfwGetTime();
 		float deltaTime = float(currentTime - lastTime);
 
+		if (deltaTime > 0.1)
+		{
+			deltaTime = 0.1;
+		}
+
+		float t = deltaTime*10.0;
+
+		for (int index = 0; index < 21; index++)
+		{
+			int currentKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame) * 84 + index * 4;
+			int nextKeyIndex;
+			
+			if (AnimationFrame + 1 >= AnimationParser.ListOfClips[AnimationIndex]->numKeys)
+					nextKeyIndex = AnimationParser.CurrentAnimationPosition[AnimationIndex] * 84 + index * 4;
+			else
+					nextKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame + 1) * 84 + index * 4;
+
+			Matrix3D TranslationMatrix;
+
+			ListOfJoints[index].VectorOfCoordinates[0] = TranslationMatrix.matris[3][0] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[0] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0]);
+			ListOfJoints[index].VectorOfCoordinates[1] = TranslationMatrix.matris[3][1] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[1] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1]);
+			ListOfJoints[index].VectorOfCoordinates[2] = TranslationMatrix.matris[3][2] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[2] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2]);
+
+
+			if (index > 0)
+					TranslationMatrix = ListOfJoints[ListOfJoints[index].parent].coordinates * TranslationMatrix;
+
+			Vector3D RotationVectorCurrent(AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[3]);
+			Vector3D RotationVectorNext(AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[3]);
+			Vector3D RotationVectorSlerped = Slerp(RotationVectorCurrent, RotationVectorNext, t);
+			Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(RotationVectorSlerped);
+
+			ListOfJoints[index].coordinates = TranslationMatrix * RotationMatrix;
+		}
+
+
 		if (deltaTime >= 0.1)
 		{
 			lastTime = currentTime;
-
-			for (int index = 0; index < 21; index++)
-			{
-
-				int currentKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame) * 84 + index * 4;
-
-				Matrix3D TranslationMatrix;
-
-				ListOfJoints[index].VectorOfCoordinates[0] = TranslationMatrix.matris[3][0] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0];
-				ListOfJoints[index].VectorOfCoordinates[1] = TranslationMatrix.matris[3][1] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1];
-				ListOfJoints[index].VectorOfCoordinates[2] = TranslationMatrix.matris[3][2] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2];
-
-				if (index > 0)
-						TranslationMatrix = ListOfJoints[ListOfJoints[index].parent].coordinates * TranslationMatrix;
-
-
-				Vector3D RotationVector(AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[3]);
-				Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(RotationVector);
-
-				ListOfJoints[index].coordinates = TranslationMatrix * RotationMatrix;
-
-			}
 
 			/*Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(Vector3D( 0.0174524, 0, 0, 0.9998477));
 
@@ -742,31 +891,30 @@ void ExampleApp::Run()
 		this->window->Update();
 		
 		// do stuff
-		glUseProgram(this->program);
 
 		computeMatricesFromInputs();
 
 		glEnableVertexAttribArray(0);
-		glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP).matris[0][0]);
+		//glUniform4f(glGetUniformLocation(this->program, "LightSource.position"), this->position.vektor[0], this->position.vektor[1], this->position.vektor[2], this->position.vektor[3]);
+		//cout << this->position.vektor[0] << " :: " << this->position.vektor[1] << " :: " << this->position.vektor[2] << " :: " << this->position.vektor[3] << endl;
 
 
 		int JointsRendered = 21;
 
-		//Current Stuff
 
 		Matrix3D JointCoordinates[JointsRendered];
 
 		for (int i = 0; i < JointsRendered; i++)
 		{
-			JointCoordinates[i] = ListOfJoints[i].coordinates;
+			JointCoordinates[i] = ListOfJoints[i].coordinates * ListOfJoints[i].InverseBindPose;
+			//JointCoordinates[i] = ListOfJoints[i].coordinates /** ListOfJoints[i].InverseBindPose*/;
 		}
 
 		glUniformMatrix4fv(this->TheJoints, JointsRendered, GL_FALSE, &(JointCoordinates[0]).matris[0][0]);		//Transpose?????
 
-		//Current Stuff End
 
-		
-		/*glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
+/*		
+		glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, NULL);
 
 		Matrix3D ScaleMatrix;
@@ -801,28 +949,43 @@ void ExampleApp::Run()
 			//glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &(this->MVP * ListOfJoints[ ListOfJoints[i].parent].coordinates).matris[0][0]);
 			glUniform1i(glGetUniformLocation(program, "JointIndex"), ListOfJoints[i].parent);
 			glDrawArrays(GL_LINES, 0, 2);
-		}*/
+		}
+/*/
 
-
-		//Current Stuff
+		glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuse);
+		glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specular);
+		glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, normal);
 
 		//glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		glEnableVertexAttribArray(3);
 		glEnableVertexAttribArray(4);
 		glEnableVertexAttribArray(5);
+		glEnableVertexAttribArray(6);
+		glEnableVertexAttribArray(7);
 
 		glBindBuffer(GL_ARRAY_BUFFER, ModelParser.VertexBuffer);
-		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), NULL);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 10 * sizeof(float), NULL);
 		//glBindTexture(GL_TEXTURE_2D, texture);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)( 4 * sizeof(float)));
-		glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)( 6 * sizeof(float)));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 10 * sizeof(float), (void*)( 4 * sizeof(float)));
+		//glVertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, 10 * sizeof(float), (void*)( 6 * sizeof(float)));
 
 
 		glBindBuffer(GL_ARRAY_BUFFER, ModelParser.BoneDataBuffer);
 		glVertexAttribPointer(3, 4, GL_UNSIGNED_BYTE, GL_TRUE, 2 * sizeof(float), NULL);
 		glVertexAttribIPointer(4, 4, GL_UNSIGNED_BYTE, 2 * sizeof(float), (void*)(sizeof(float)));
 
+
+		glBindBuffer(GL_ARRAY_BUFFER, ModelParser.NormalsBuffer);
+		/*glVertexAttribPointer(5, 4, GL_UNSIGNED_BYTE, GL_TRUE, 3 * sizeof(float), NULL);
+		glVertexAttribPointer(6, 4, GL_UNSIGNED_BYTE, GL_TRUE, 3 * sizeof(float), (void*)(sizeof(float)));
+		glVertexAttribPointer(7, 4, GL_UNSIGNED_BYTE, GL_TRUE, 3 * sizeof(float), (void*)(2 * sizeof(float)));*/
+		glVertexAttribPointer(5, 4, GL_BYTE, GL_TRUE, 3 * sizeof(float), NULL);
+		glVertexAttribPointer(6, 4, GL_BYTE, GL_TRUE, 3 * sizeof(float), (void*)(sizeof(float)));
+		glVertexAttribPointer(7, 4, GL_BYTE, GL_TRUE, 3 * sizeof(float), (void*)(2 * sizeof(float)));
 
 		//glBindBuffer(GL_ARRAY_BUFFER, this->color);
 		//glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -836,13 +999,8 @@ void ExampleApp::Run()
 		glDisableVertexAttribArray(3);
 		glDisableVertexAttribArray(4);
 		glDisableVertexAttribArray(5);
-
-		
-
-		//Current Stuff Ends
-
-
-
+		glDisableVertexAttribArray(6);
+		glDisableVertexAttribArray(7);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);		//int index;
 

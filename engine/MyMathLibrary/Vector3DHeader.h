@@ -47,6 +47,7 @@ inline Vector3D Vector3D::operator+(const Vector3D &obj) //Addition operator bet
 	temp.vektor[0] = this->vektor[0] + obj.vektor[0];
 	temp.vektor[1] = this->vektor[1] + obj.vektor[1];
 	temp.vektor[2] = this->vektor[2] + obj.vektor[2];
+	temp.vektor[3] = this->vektor[3];
 
 	return temp;
 }
@@ -58,6 +59,7 @@ inline Vector3D Vector3D::operator-(const Vector3D &obj) //Subtraktion operator 
 	temp.vektor[0] = this->vektor[0] - obj.vektor[0];
 	temp.vektor[1] = this->vektor[1] - obj.vektor[1];
 	temp.vektor[2] = this->vektor[2] - obj.vektor[2];
+	temp.vektor[3] = this->vektor[3];
 
 	return temp;
 }
@@ -69,6 +71,7 @@ inline Vector3D Vector3D::operator*(const Vector3D &obj) //Multiplication operat
 	temp.vektor[0] = this->vektor[0] * obj.vektor[0];
 	temp.vektor[1] = this->vektor[1] * obj.vektor[1];
 	temp.vektor[2] = this->vektor[2] * obj.vektor[2];
+	temp.vektor[3] = this->vektor[3] * obj.vektor[3];
 
 	return temp;
 }
@@ -82,6 +85,7 @@ inline Vector3D Vector3D::operator*(float scalar) //Multiplication operator betw
 	temp.vektor[0] = this->vektor[0] * scalar;
 	temp.vektor[1] = this->vektor[1] * scalar;
 	temp.vektor[2] = this->vektor[2] * scalar;
+	temp.vektor[3] = this->vektor[3];
 
 	return temp;
 }

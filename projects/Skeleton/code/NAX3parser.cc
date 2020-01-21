@@ -11,7 +11,7 @@ namespace CoreAnimation
 	bool NAX3parser::SetupFromNax3(const char* NAX3filepath)
 	{
 
-		ifstream AnimationFile(NAX3filepath, ifstream::binary );
+		ifstream AnimationFile(NAX3filepath, ifstream::binary);
 		
 		if( !AnimationFile.is_open() ){
 			printf("Can't open file!\n");
