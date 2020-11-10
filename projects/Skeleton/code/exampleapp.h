@@ -65,6 +65,7 @@ public:
 	};
 
 	joint ListOfJoints[21];
+	//Display::Window* window;
 
 private:
 
@@ -79,12 +80,11 @@ private:
 	//GLuint color2;
 
 	GLuint MatrixID;
-	GLuint ViewMatrixID;
 	GLuint CameraPositionID;
 	GLuint TheJoints;
 	Matrix3D MVP;
-	Matrix3D Projection;
 	Matrix3D View;
+	Matrix3D Projection;
 
 	//GLuint MeshBuffer;
 

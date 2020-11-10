@@ -67,6 +67,8 @@ inline Matrix3D Matrix3D::FillMatrix(float a11, float a12, float a13, float a14,
 	this->matris[1][3] = a42;
 	this->matris[2][3] = a43;
 	this->matris[3][3] = a44;
+
+	return *this;
 }
 
 inline Matrix3D Matrix3D::operator*(Matrix3D obj)

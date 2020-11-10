@@ -3,13 +3,14 @@
 /**
 	Manages the opening and closing of a window.
 	
-	(C) 2015-2018 Individual contributors, see AUTHORS file
+	(C) 2015-2020 Individual contributors, see AUTHORS file
 */
 //------------------------------------------------------------------------------
 #include <functional>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <nanovg.h>
+#include <string>
 
 namespace Display
 {
@@ -59,7 +60,7 @@ public:
 	/// set optional nanovg render function
 	void SetNanoVGRender(const std::function<void(NVGcontext *)> & func);
 
-	GLFWwindow* window;
+	GLFWwindow* window;				//Changed from private to public
 
 private:
 
@@ -100,6 +101,7 @@ private:
 	int32 width;
 	int32 height;
 	std::string title;
+	//GLFWwindow* window;
 	NVGcontext * vg;
 };
 
@@ -111,7 +113,10 @@ Window::SetSize(int32 width, int32 height)
 {
 	this->width = width;
 	this->height = height;
-	if (nullptr != this->window) this->Resize();
+	if (nullptr != this->window)
+	{
+		this->Resize();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -132,7 +137,10 @@ inline void
 Window::SetTitle(const std::string& title)
 {
 	this->title = title;
-	if (nullptr != this->window) this->Retitle();
+	if (nullptr != this->window)
+	{
+		this->Retitle();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -206,8 +214,4 @@ Window::SetNanoVGRender(const std::function<void(NVGcontext *)> & func)
 {
 	this->nanoFunc = func;
 }
-
-
-
-
 } // namespace Display
