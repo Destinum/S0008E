@@ -46,23 +46,26 @@ const GLchar* vs =
 "	BoneTransformation += ListOfJoints[ListOfIndices[Indices[2]]] * Weights2[2];\n"
 "	BoneTransformation += ListOfJoints[ListOfIndices[Indices[3]]] * Weights2[3];\n"
 
-"	vec4 ThePos = BoneTransformation * pos;\n"								//Comment out to remove animation
-//"	vec4 ThePos = pos;\n"													//Comment out to add animation
-"	gl_Position = MVP * ThePos;\n"
-"	VertexPosition = ThePos;\n"
-"	TextureCoordinates = InTexture;\n"
+
+//Use these 5 lines to apply animation
+"	vec4 ThePos = BoneTransformation * pos;\n"
+"	vec3 T = normalize((BoneTransformation * Tangents).xyz);\n"
+"	vec3 B = normalize((BoneTransformation * Bitangents).xyz);\n"
+"	vec3 N = normalize((BoneTransformation * Normals).xyz);\n"
+"	TBN = transpose(mat3(T, B, N));\n"
 
 /*
+//Use these 5 lines to remove animation
+"	vec4 ThePos = pos;\n"
 "	vec3 T = normalize(Tangents.xyz);\n"
 "	vec3 B = normalize(Bitangents.xyz);\n"
 "	vec3 N = normalize(Normals.xyz);\n"
 "	TBN = transpose(mat3(T, B, N));\n"
 */
 
-"	vec3 T = normalize((BoneTransformation * Tangents).xyz);\n"
-"	vec3 B = normalize((BoneTransformation * Bitangents).xyz);\n"
-"	vec3 N = normalize((BoneTransformation * Normals).xyz);\n"
-"	TBN = transpose(mat3(T, B, N));\n"
+"	gl_Position = MVP * ThePos;\n"
+"	VertexPosition = ThePos;\n"
+"	TextureCoordinates = InTexture;\n"
 
 "}\n";
 
@@ -728,9 +731,10 @@ void ExampleApp::Run()
 		glUniform4f(glGetUniformLocation(this->program, "LightSource.ambient"), 0.01f, 0.01f, 0.01f, 1.0);
 		glUniform4f(glGetUniformLocation(this->program, "LightSource.diffuse"), 1.0f, 1.0f, 1.0f, 1.0);
 		glUniform4f(glGetUniformLocation(this->program, "LightSource.specular"), 10.0f, 10.0f, 10.0f, 1.0);
-		glUniform1f(glGetUniformLocation(this->program, "LightSource.LightStrength"), 1.0f);
+		glUniform1f(glGetUniformLocation(this->program, "LightSource.LightStrength"), 1.5f);
 
-		
+	float TimeBetweenFrames = 0.1;
+
 	while (this->window->IsOpen())
 	{
 		static int AnimationIndex = 6;
@@ -745,9 +749,9 @@ void ExampleApp::Run()
 		double currentTime = glfwGetTime();
 		float deltaTime = float(currentTime - lastTime);
 
-		if (deltaTime > 0.1)
+		if (deltaTime > TimeBetweenFrames)
 		{
-			deltaTime = 0.1;
+			deltaTime = TimeBetweenFrames;
 		}
 
 		float t = deltaTime*10.0;
@@ -781,7 +785,7 @@ void ExampleApp::Run()
 		}
 
 
-		if (deltaTime >= 0.1)
+		if (deltaTime >= TimeBetweenFrames)
 		{
 			lastTime = currentTime;
 
@@ -822,7 +826,7 @@ void ExampleApp::Run()
 			JointCoordinates[i] = ListOfJoints[i].coordinates * ListOfJoints[i].InverseBindPose;
 		}
 
-		glUniformMatrix4fv(this->TheJoints, JointsRendered, GL_FALSE, &(JointCoordinates[0]).matris[0][0]);		//Transpose?????
+		glUniformMatrix4fv(this->TheJoints, JointsRendered, GL_FALSE, &(JointCoordinates[0]).matris[0][0]);
 
 
 /*		
