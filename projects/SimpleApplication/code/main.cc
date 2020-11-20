@@ -134,14 +134,6 @@ int main()
     			th.join();		
 		}
 
-		else if (Command == "s")
-		{
-			string Folder;
-			cin >> Folder;
-
-			
-		}
-
 		else
 		{
 			cout << "Invalid Command." << endl;
