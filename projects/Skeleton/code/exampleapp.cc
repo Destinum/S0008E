@@ -238,7 +238,6 @@ ExampleApp::Open()
 		glBindBuffer(GL_ARRAY_BUFFER, this->triangle);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(buf), buf, GL_STATIC_DRAW);
 
-
 		glGenBuffers(1, &this->color);
 		glBindBuffer(GL_ARRAY_BUFFER, this->color);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(bufColor), bufColor, GL_STATIC_DRAW);
@@ -686,7 +685,7 @@ void ExampleApp::Run()
 		bool res = ExampleApp::loadOBJ(filepathOfObject, vertices, uvs, normals);
 
 		int SizeOfList = vertices.size()*4;
-		float ListToBuffer[SizeOfList];
+		float *ListToBuffer = new float[SizeOfList];
 
 		for (int i = 0; i < vertices.size(); i++)
 		{
@@ -702,6 +701,7 @@ void ExampleApp::Run()
 		glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(ListToBuffer), ListToBuffer, GL_STATIC_DRAW);
 
+		delete [] ListToBuffer;
 
 		GLuint LinesBuffer;
 		glGenBuffers(1, &LinesBuffer);
