@@ -142,11 +142,11 @@ bool nvx2parser::SetupFromNvx2(const char* nvx2filepath)
 
 
     int SizeOfList = vertices.size()*10;
-    float ListToBuffer[SizeOfList];
+    float *ListToBuffer = new float[SizeOfList];
     int SizeOfSecondList = vertices.size()*8;
-    unsigned char BoneDataListToBuffer[SizeOfSecondList];
+    unsigned char *BoneDataListToBuffer = new unsigned char[SizeOfSecondList];
     int SizeOfThirdList = vertices.size()*12;
-    char NormalsListToBuffer[SizeOfThirdList];
+    char *NormalsListToBuffer = new char[SizeOfThirdList];
 
     int TriangleCounter = 3;
     Vector3D Edge1;
@@ -248,6 +248,9 @@ bool nvx2parser::SetupFromNvx2(const char* nvx2filepath)
     glBufferData(GL_ARRAY_BUFFER, sizeof(NormalsListToBuffer), NormalsListToBuffer, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    delete [] ListToBuffer;
+    delete [] BoneDataListToBuffer;
+    delete [] NormalsListToBuffer;
 
     return true;
 }
