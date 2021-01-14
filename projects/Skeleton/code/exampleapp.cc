@@ -159,7 +159,7 @@ ExampleApp::Open()
 	// 	this->window->Close();
 	// });
 
-
+/*
 	GLfloat buf[] =
 	{
 		-0.5f,	-0.5f,	-1,		1,	// pos 0
@@ -174,6 +174,7 @@ ExampleApp::Open()
 		0,		1,		0,		1,	// color 1
 		0,		0,		1,		1	// color 2
 	};
+*/
 
 	if (this->window->Open())
 	{
@@ -232,7 +233,7 @@ ExampleApp::Open()
 		this->CameraPositionID = glGetUniformLocation(this->program, "CameraPosition");				
 		this->TheJoints = glGetUniformLocation(this->program, "ListOfJoints");
 
-
+/*
 		//setup vbo
 		glGenBuffers(1, &this->triangle);
 		glBindBuffer(GL_ARRAY_BUFFER, this->triangle);
@@ -242,8 +243,9 @@ ExampleApp::Open()
 		glBindBuffer(GL_ARRAY_BUFFER, this->color);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(bufColor), bufColor, GL_STATIC_DRAW);
 
-
+*/
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 		return true;
 	}
@@ -818,8 +820,7 @@ void ExampleApp::Run()
 
 		int JointsRendered = 21;
 
-
-		Matrix3D JointCoordinates[JointsRendered];
+		Matrix3D *JointCoordinates = new Matrix3D[JointsRendered];
 
 		for (int i = 0; i < JointsRendered; i++)
 		{
@@ -828,6 +829,7 @@ void ExampleApp::Run()
 
 		glUniformMatrix4fv(this->TheJoints, JointsRendered, GL_FALSE, &(JointCoordinates[0]).matris[0][0]);
 
+		delete [] JointCoordinates;
 
 /*		
 		glBindBuffer(GL_ARRAY_BUFFER, ObjectVertexBuffer);
