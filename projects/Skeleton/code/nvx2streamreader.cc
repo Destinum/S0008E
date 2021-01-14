@@ -216,19 +216,19 @@ bool nvx2parser::SetupFromNvx2(const char* nvx2filepath)
         NormalsListToBuffer[k + 10] = vertices[i]->BinormalB4N[2];
         NormalsListToBuffer[k + 11] = 0.0;
 
-        cout << "Real Tangents for " << i << ": " << ListToBuffer[n + 6] << " :: " << ListToBuffer[n + 7] << " :: " << ListToBuffer[n + 8] << " :: " << ListToBuffer[n + 9] << endl;
+        //cout << "Real Tangents for " << i << ": " << ListToBuffer[n + 6] << " :: " << ListToBuffer[n + 7] << " :: " << ListToBuffer[n + 8] << " :: " << ListToBuffer[n + 9] << endl;
 
 //            cout << "These Normals for " << i << ": " << +vertices[i]->NormalB4N[0] << " :: " << +vertices[i]->NormalB4N[1] << " :: " << +vertices[i]->NormalB4N[2] << " :: " << +vertices[i]->NormalB4N[3] << endl;
 //            cout << "Ain't Normals for " << i << ": " << +NormalsListToBuffer[k] << " :: " << +NormalsListToBuffer[k + 1] << " :: " << +NormalsListToBuffer[k + 2] << " :: " << +NormalsListToBuffer[k + 3] << endl;
         
 //            cout << "These Tangents for " << i << ": " << +vertices[i]->TangentB4N[0] << " :: " << +vertices[i]->TangentB4N[1] << " :: " << +vertices[i]->TangentB4N[2] << " :: " << +vertices[i]->TangentB4N[3] << endl;
-        cout << "Ain't Tangents for " << i << ": " << +NormalsListToBuffer[k + 4] << " :: " << +NormalsListToBuffer[k + 5] << " :: " << +NormalsListToBuffer[k + 6] << " :: " << +NormalsListToBuffer[k + 7] << endl;
+        //cout << "Ain't Tangents for " << i << ": " << +NormalsListToBuffer[k + 4] << " :: " << +NormalsListToBuffer[k + 5] << " :: " << +NormalsListToBuffer[k + 6] << " :: " << +NormalsListToBuffer[k + 7] << endl;
 
 //            cout << "These Binormals for " << i << ": " << +vertices[i]->BinormalB4N[0] << " :: " << +vertices[i]->BinormalB4N[1] << " :: " << +vertices[i]->BinormalB4N[2] << " :: " << +vertices[i]->BinormalB4N[3] << endl;
 //            cout << "Ain't Binormals for " << i << ": " << +NormalsListToBuffer[k + 8] << " :: " << +NormalsListToBuffer[k + 9] << " :: " << +NormalsListToBuffer[k + 10] << " :: " << +NormalsListToBuffer[k + 11] << endl;
 
 
-        cout << endl;
+        //cout << endl;
 
         TriangleCounter++;
     }
