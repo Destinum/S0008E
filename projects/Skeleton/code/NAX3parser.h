@@ -67,9 +67,9 @@ public:
 
     bool SetupFromNax3(const char*);
 
-    vector<Nax3Clip*> ListOfClips;
-    vector<Nax3Curve*> ListOfCurves;
-    vector<Vector3D*> ListOfKeys;
+    vector<Nax3Clip> ListOfClips;
+    vector<Nax3Curve> ListOfCurves;
+    vector<Vector3D> ListOfKeys;
     vector<int> CurrentAnimationPosition;
 
 };

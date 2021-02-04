@@ -205,7 +205,7 @@ ExampleApp::Open()
 		glCompileShader(this->pixelShader);
 
 		// get error log
-		shaderLogSize;
+		//shaderLogSize;
 		glGetShaderiv(this->pixelShader, GL_INFO_LOG_LENGTH, &shaderLogSize);
 		if (shaderLogSize > 0)
 		{
@@ -493,7 +493,7 @@ bool ExampleApp::loadOBJ(const char * path, vector<Vector3D> & out_vertices, vec
 
 void ExampleApp::UpdateChildren(int index)
 {
-	for (int i = 0; i < ListOfJoints[index].ListOfChildren.size(); i++)
+	for (size_t i = 0; i < ListOfJoints[index].ListOfChildren.size(); i++)
 	{
 		int ChildIndex = ListOfJoints[index].ListOfChildren[i];
 
@@ -684,12 +684,13 @@ void ExampleApp::Run()
 		vector<Vector3D> vertices;
 		vector<Vector2D>  uvs;
 		vector<Vector3D>  normals; // Won't be used at the moment.
-		bool res = ExampleApp::loadOBJ(filepathOfObject, vertices, uvs, normals);
+		//bool res = ExampleApp::loadOBJ(filepathOfObject, vertices, uvs, normals);
+		ExampleApp::loadOBJ(filepathOfObject, vertices, uvs, normals);
 
 		int SizeOfList = vertices.size()*4;
 		float *ListToBuffer = new float[SizeOfList];
 
-		for (int i = 0; i < vertices.size(); i++)
+		for (size_t i = 0; i < vertices.size(); i++)
 		{
 			int n = i*4;
 			ListToBuffer[n] = vertices[i].vektor[0];
@@ -717,7 +718,9 @@ void ExampleApp::Run()
 		const char* NAX3filepath = "../projects/Skeleton/footman/Unit_Footman.nax3";
 		CoreAnimation::NAX3parser AnimationParser;
 		AnimationParser.SetupFromNax3(NAX3filepath);
-
+		//int First = AnimationParser.ListOfClips.size();
+		//int Second = AnimationParser.ListOfKeys.size();
+		//int Third = AnimationParser.ListOfCurves.size();
 
 		unsigned int diffuse = LoadTexture("../projects/Skeleton/footman/Footman_Diffuse.tga");
 		unsigned int specular = LoadTexture("../projects/Skeleton/footman/Footman_Specular.tga");
@@ -756,52 +759,55 @@ void ExampleApp::Run()
 			deltaTime = TimeBetweenFrames;
 		}
 
+		
 		float t = deltaTime*10.0;
 
 		for (int index = 0; index < 21; index++)
 		{
-			int currentKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame) * 84 + index * 4;
+			int currentKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame) * 84 + index * 4; //- 1 ??????????
 			int nextKeyIndex;
 			
-			if (AnimationFrame + 1 >= AnimationParser.ListOfClips[AnimationIndex]->numKeys)
+			if (AnimationFrame + 1 >= AnimationParser.ListOfClips[AnimationIndex].numKeys)
 					nextKeyIndex = AnimationParser.CurrentAnimationPosition[AnimationIndex] * 84 + index * 4;
 			else
-					nextKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame + 1) * 84 + index * 4;
+					nextKeyIndex = (AnimationParser.CurrentAnimationPosition[AnimationIndex] + AnimationFrame + 1) * 84 + index * 4; //- 1 ??????????
 
 			Matrix3D TranslationMatrix;
 
-			ListOfJoints[index].VectorOfCoordinates[0] = TranslationMatrix.matris[3][0] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[0] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[0]);
-			ListOfJoints[index].VectorOfCoordinates[1] = TranslationMatrix.matris[3][1] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[1] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[1]);
-			ListOfJoints[index].VectorOfCoordinates[2] = TranslationMatrix.matris[3][2] = AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2] + t*(AnimationParser.ListOfKeys[nextKeyIndex]->vektor[2] - AnimationParser.ListOfKeys[currentKeyIndex]->vektor[2]);
+			ListOfJoints[index].VectorOfCoordinates[0] = TranslationMatrix.matris[3][0] = AnimationParser.ListOfKeys[currentKeyIndex].vektor[0] + t*(AnimationParser.ListOfKeys[nextKeyIndex].vektor[0] - AnimationParser.ListOfKeys[currentKeyIndex].vektor[0]);
+			ListOfJoints[index].VectorOfCoordinates[1] = TranslationMatrix.matris[3][1] = AnimationParser.ListOfKeys[currentKeyIndex].vektor[1] + t*(AnimationParser.ListOfKeys[nextKeyIndex].vektor[1] - AnimationParser.ListOfKeys[currentKeyIndex].vektor[1]);
+			ListOfJoints[index].VectorOfCoordinates[2] = TranslationMatrix.matris[3][2] = AnimationParser.ListOfKeys[currentKeyIndex].vektor[2] + t*(AnimationParser.ListOfKeys[nextKeyIndex].vektor[2] - AnimationParser.ListOfKeys[currentKeyIndex].vektor[2]);
 
 
 			if (index > 0)
 					TranslationMatrix = ListOfJoints[ListOfJoints[index].parent].coordinates * TranslationMatrix;
 
-			Vector3D RotationVectorCurrent(AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[currentKeyIndex + 1]->vektor[3]);
-			Vector3D RotationVectorNext(AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[0], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[1], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[2], AnimationParser.ListOfKeys[nextKeyIndex + 1]->vektor[3]);
+			Vector3D RotationVectorCurrent(AnimationParser.ListOfKeys[currentKeyIndex + 1].vektor[0], AnimationParser.ListOfKeys[currentKeyIndex + 1].vektor[1], AnimationParser.ListOfKeys[currentKeyIndex + 1].vektor[2], AnimationParser.ListOfKeys[currentKeyIndex + 1].vektor[3]);
+			Vector3D RotationVectorNext(AnimationParser.ListOfKeys[nextKeyIndex + 1].vektor[0], AnimationParser.ListOfKeys[nextKeyIndex + 1].vektor[1], AnimationParser.ListOfKeys[nextKeyIndex + 1].vektor[2], AnimationParser.ListOfKeys[nextKeyIndex + 1].vektor[3]);
 			Vector3D RotationVectorSlerped = Slerp(RotationVectorCurrent, RotationVectorNext, t);
 			Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(RotationVectorSlerped);
 
 			ListOfJoints[index].coordinates = TranslationMatrix * RotationMatrix;
 		}
+		
 
 
 		if (deltaTime >= TimeBetweenFrames)
 		{
 			lastTime = currentTime;
-
-			/*Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(Vector3D( 0.0174524, 0, 0, 0.9998477));
+			/*
+			Matrix3D RotationMatrix = RotationMatrix.QuaternionToMatrix(Vector3D( 0.0174524, 0, 0, 0.9998477));
 
 			ListOfJoints[5].coordinates = ListOfJoints[5].coordinates * RotationMatrix;
 			UpdateChildren(5);
 
 			ListOfJoints[9].coordinates = ListOfJoints[9].coordinates * RotationMatrix;
-			UpdateChildren(9);*/
+			UpdateChildren(9);
+			*/
 
 			AnimationFrame += 1;
 			
-			if(AnimationFrame >= AnimationParser.ListOfClips[AnimationIndex]->numKeys)
+			if(AnimationFrame >= AnimationParser.ListOfClips[AnimationIndex].numKeys)
 			{
 				AnimationFrame = 0;
 			}

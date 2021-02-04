@@ -37,14 +37,14 @@ namespace CoreAnimation
 		for (uint ClipIndex = 0; ClipIndex < naxHeader->numClips; ClipIndex++)
 		{
 			Nax3Clip* naxClip = (Nax3Clip*) buffer;
-			ListOfClips.push_back(naxClip);
+			ListOfClips.push_back(*naxClip);
 			buffer += sizeof(Nax3Clip);
 
 			if (ClipIndex == 0)
 				CurrentAnimationPosition.push_back(0);
 			
 			else
-				CurrentAnimationPosition.push_back(CurrentAnimationPosition[ClipIndex - 1] + ListOfClips[ClipIndex - 1]->numKeys);
+				CurrentAnimationPosition.push_back(CurrentAnimationPosition[ClipIndex - 1] + ListOfClips[ClipIndex - 1].numKeys);
 
 			for(ushort EventIndex = 0; EventIndex < naxClip->numEvents; EventIndex++)
 			{
@@ -56,18 +56,19 @@ namespace CoreAnimation
 				if(ClipIndex == 0)
 				{
 					Nax3Curve* naxCurve = (Nax3Curve*) buffer;
-					this->ListOfCurves.push_back(naxCurve);
+					this->ListOfCurves.push_back(*naxCurve);
 				}
 				
 				buffer += sizeof(Nax3Curve);
 			}
 		}
 
+		//for (ushort KeyIndex = 0; KeyIndex < naxHeader->numKeys; KeyIndex++)
 		for (uint KeyIndex = 0; KeyIndex < naxHeader->numKeys; KeyIndex++)
 		{
 			Vector3D* KeyVector = (Vector3D*) buffer;
 
-			this->ListOfKeys.push_back(KeyVector);
+			this->ListOfKeys.push_back(*KeyVector);
 
 			buffer += sizeof(Vector3D);
 		}

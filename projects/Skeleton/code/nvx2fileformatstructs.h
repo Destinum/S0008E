@@ -133,7 +133,7 @@ public:
     VertexComponent();
     /// constructor
     VertexComponent(SemanticName semName, IndexT semIndex, Format format, IndexT streamIndex=0, StrideType strideType=PerVertex, SizeT stride=0);
-    
+
 	/*
 	
 	/// get semantic name
@@ -177,11 +177,10 @@ protected:
     IndexT semIndex;
     Format format;
     AccessType accessType;
-	StrideType strideType;
-	SizeT stride;
     IndexT streamIndex;
     IndexT byteOffset;
-
+    StrideType strideType;
+    SizeT stride;
 };
 
 class nvx2parser
@@ -189,13 +188,11 @@ class nvx2parser
 public:
     bool SetupFromNvx2(const char*);
 
-    vector<Nvx2Group*> ListOfGroups;
-    //vector<Vector3D*> ListOfKeys;
+    vector<Nvx2Group> ListOfGroups;
 	GLuint VertexBuffer;
     GLuint BoneDataBuffer;
     GLuint NormalsBuffer;
-	//vector<Vector3D*> vertices;
-	vector<Nvx2Vertex*> vertices;
+    vector<Nvx2Vertex> vertices;
 
 	enum N2VertexComponent
     {

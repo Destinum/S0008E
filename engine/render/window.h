@@ -98,11 +98,11 @@ private:
 	std::function<void(NVGcontext *)> nanoFunc;
 
 
+	//GLFWwindow* window;
+	NVGcontext * vg;
 	int32 width;
 	int32 height;
 	std::string title;
-	//GLFWwindow* window;
-	NVGcontext * vg;
 };
 
 //------------------------------------------------------------------------------
